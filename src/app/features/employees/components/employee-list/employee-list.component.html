@@ -1,0 +1,27 @@
+<div class="container">
+
+  <div class="header">
+    <h1>👨‍💼 Employee Manager</h1>
+    <button mat-raised-button color="primary" (click)="open()">
+      + Add Employee
+    </button>
+  </div>
+
+  <div *ngIf="loading()" class="loading">Loading...</div>
+
+  <div class="grid">
+    <mat-card *ngFor="let e of employees()">
+      <h3>{{ e.info.name }}</h3>
+      <p>Age: {{ e.info.age }}</p>
+      <p>{{ e.info.description }}</p>
+
+      <div class="actions">
+        <button mat-button (click)="open(e)">Edit</button>
+        <button mat-button color="warn" (click)="remove(e.id)">
+          Delete
+        </button>
+      </div>
+    </mat-card>
+  </div>
+
+</div>

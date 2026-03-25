@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>
+  {{ data ? 'Edit Employee' : 'Add Employee' }}
+</h2>
+
+<mat-dialog-content class="form-container">
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Name</mat-label>
+    <input matInput [(ngModel)]="model.info.name" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Age</mat-label>
+    <input matInput type="number" [(ngModel)]="model.info.age" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput rows="3" [(ngModel)]="model.info.description"></textarea>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-stroked-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="primary"
+          (click)="save()"
+          [disabled]="!model.info.name">
+    Save
+  </button>
+</mat-dialog-actions>
