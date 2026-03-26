@@ -24,6 +24,28 @@ const commonEngine = new CommonEngine();
  * ```
  */
 
+app.use(express.json());
+
+app.use('/api', async (req, res) => {
+  const target = `https://gps6cdg7h9.execute-api.eu-central-1.amazonaws.com/prod${req.url}`;
+
+  try {
+    const response = await fetch(target, {
+      method: req.method,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: req.method !== 'GET' ? JSON.stringify(req.body) : undefined
+    });
+
+    const data = await response.text();
+    res.status(response.status).send(data);
+  } catch (err) {
+    console.error('Proxy error:', err);
+    res.status(500).send('Proxy error');
+  }
+});
+
 /**
  * Serve static files from /browser
  */
