@@ -7,9 +7,11 @@ import { ApiResponse } from '../../features/employees/models/api-response.model'
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
   private http = inject(HttpClient);
-  private base = 'https://gps6cdg7h9.execute-api.eu-central-1.amazonaws.com/prod';
+  private base = '/api';
 
-  private headers = new HttpHeaders({ 'content-type': 'application/json' });
+  private headers = new HttpHeaders({
+    'Content-Type': 'application/json'
+  });
 
   getEmployees(): Observable<Employee[]> {
     return this.http
