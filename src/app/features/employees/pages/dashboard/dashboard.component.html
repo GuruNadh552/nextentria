@@ -1,0 +1,67 @@
+<div class="container">
+
+  <div class="header">
+    <div>
+      <h1>Employee Check-In</h1>
+      <p>{{ attendance.checkedInCount() }} employees active</p>
+    </div>
+  </div>
+
+  <mat-card class="action-card">
+    <div class="card-title">Quick Check-In / Out</div>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Employee ID</mat-label>
+      <input
+        matInput
+        [value]="empIdInput()"
+        (input)="updateInput($event)"
+        placeholder="EMP1"
+      />
+    </mat-form-field>
+
+    <div class="btn-group">
+
+      <button mat-stroked-button color="primary" (click)="checkIn()">
+        Check In
+      </button>
+
+      <button mat-flat-button color="primary" (click)="checkOut()">
+        Check Out
+      </button>
+
+    </div>
+
+  </mat-card>
+
+  <div class="summary">
+    <span class="dot"></span>
+    {{ attendance.checkedInCount() }} employees currently checked in
+  </div>
+
+  <div class="grid" *ngIf="checkedInEmployees().length; else empty">
+
+    <mat-card class="employee-card"
+              *ngFor="let e of checkedInEmployees()">
+
+      <div class="card-header">
+        <h3>{{ e.info.name }}</h3>
+        <span class="status">Active</span>
+      </div>
+
+      <p class="emp-id">{{ e.employeeId }}</p>
+
+      <div class="badge">
+        Checked In {{ getCheckInTime(e.employeeId) || '--' }}
+      </div>
+
+    </mat-card>
+
+  </div>
+
+  <ng-template #empty>
+    <div class="empty">
+      No employees checked in
+    </div>
+  </ng-template>
+
+</div>

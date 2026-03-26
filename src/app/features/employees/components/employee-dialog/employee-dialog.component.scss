@@ -1,23 +1,38 @@
-.form-container {
+.dialog {
+  padding: 24px;
+  width: 420px;
+  background: #ffffff;
+  border-radius: 16px;
+}
+
+.title {
+  margin: 0 0 20px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.row {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-top: 10px;
+  gap: 12px;
 }
 
-.full-width {
+.full {
   width: 100%;
+  margin-top: 12px;
 }
 
-mat-dialog-content {
-  padding-top: 10px;
+mat-form-field {
+  flex: 1;
 }
 
-mat-dialog-actions {
-  margin-top: 10px;
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
 }
 
-button {
+button[mat-flat-button] {
   border-radius: 8px;
-  font-weight: 500;
+  padding: 6px 18px;
 }

@@ -1,0 +1,45 @@
+<div class="container">
+
+  <div class="page-header">
+    <div>
+      <h1>Employees</h1>
+      <p class="subtitle">Manage your team efficiently</p>
+    </div>
+
+    <button mat-flat-button color="primary" class="add-btn" (click)="openAdd()">
+      + Add Employee
+    </button>
+  </div>
+
+  <mat-form-field appearance="outline" class="search">
+    <mat-label>Search employees</mat-label>
+    <input
+      matInput
+      placeholder="Search by name..."
+      (input)="updateInput($event)"
+    />
+  </mat-form-field>
+
+  <!-- GRID -->
+  <div class="grid">
+
+    <mat-card class="employee-card"
+              *ngFor="let e of filtered()"
+              (click)="open(e)">
+
+      <div class="avatar">
+        {{ e.info.name[0] }}
+      </div>
+
+      <div class="info">
+        <h3>{{ e.info.name }}</h3>
+        <p>{{ e.employeeId }}</p>
+      </div>
+
+      <div class="role">Employee</div>
+
+    </mat-card>
+
+  </div>
+
+</div>

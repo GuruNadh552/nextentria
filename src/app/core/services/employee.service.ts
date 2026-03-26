@@ -1,39 +1,31 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
-import { Employee } from '../../features/employees/models/employee.model';
-import { ApiResponse } from '../../features/employees/models/api-response.model';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class EmployeeService {
   private http = inject(HttpClient);
   private base = '/api';
 
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json'
-  });
-
-  getEmployees(): Observable<Employee[]> {
-    return this.http
-      .get<ApiResponse<Employee[]>>(`${this.base}/list`)
-      .pipe(map(res => res.data));
+  getEmployees() {
+    return this.http.get<any>(`${this.base}/list`)
+      .pipe(map(r => r.data));
   }
 
-  createEmployee(emp: Employee): Observable<void> {
-    return this.http
-      .post<ApiResponse<null>>(`${this.base}/create`, emp.info, { headers: this.headers })
-      .pipe(map(() => void 0));
+  getEmployee(id: string) {
+    return this.http.get<any>(`${this.base}/list?id=${id}`)
+      .pipe(map(r => r.data));
   }
 
-  updateEmployee(id: string, emp: Employee): Observable<void> {
-    return this.http
-      .put<ApiResponse<null>>(`${this.base}/update?id=${id}`, emp.info, { headers: this.headers })
-      .pipe(map(() => void 0));
+  createEmployee(data: any) {
+    return this.http.post(`${this.base}/create`, data);
   }
 
-  deleteEmployee(id: string): Observable<void> {
-    return this.http
-      .delete<ApiResponse<null>>(`${this.base}/delete?id=${id}`, { headers: this.headers })
-      .pipe(map(() => void 0));
+  updateEmployee(id: string, data: any) {
+    return this.http.put(`${this.base}/update?id=${id}`, data);
+  }
+
+  deleteEmployee(id: string) {
+    return this.http.delete(`${this.base}/delete?id=${id}`);
   }
 }

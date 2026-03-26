@@ -1,0 +1,33 @@
+.dialog {
+  padding: 24px;
+  width: 360px;
+  text-align: center;
+}
+
+.icon {
+  font-size: 28px;
+  margin-bottom: 10px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+p {
+  margin: 12px 0 20px;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+button {
+  min-width: 90px;
+  border-radius: 8px;
+}

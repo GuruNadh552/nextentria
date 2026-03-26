@@ -1,56 +1,68 @@
-import { Component, Inject, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { EmployeeService } from '../../../../core/services/employee.service';
-import { Employee } from '../../models/employee.model';
+import { Component, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import {
+  FormBuilder,
+  Validators,
+  ReactiveFormsModule
+} from '@angular/forms';
+
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef
+} from '@angular/material/dialog';
+
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+
+import { Employee } from '../../models/employee.model';
+
+type DialogData = {
+  employee?: Employee;
+};
 
 @Component({
   standalone: true,
   selector: 'app-employee-dialog',
   imports: [
-    FormsModule,
-    MatDialogModule,
-    MatButtonModule,
+    CommonModule,
+    ReactiveFormsModule,
     MatInputModule,
-    MatFormFieldModule,
+    MatButtonModule
   ],
   templateUrl: './employee-dialog.component.html',
-  styleUrls: ['./employee-dialog.component.scss'],
+  styleUrls: ['./employee-dialog.component.scss']
 })
 export class EmployeeDialogComponent {
-  private api = inject(EmployeeService);
-  private snack = inject(MatSnackBar);
 
-  model: Employee = {
-    id: '',
-    info: {
-      name: '',
-      age: '',
-      description: '',
-    },
-  };
+  private fb = inject(FormBuilder);
+  private dialogRef = inject(MatDialogRef<EmployeeDialogComponent>);
+  private data = inject<DialogData>(MAT_DIALOG_DATA);
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Employee | null) {
-    if (data) this.model = { ...data };
-  }
+  isEdit = !!this.data?.employee;
+  loading = false;
+
+  form = this.fb.nonNullable.group({
+    name: [
+      this.data?.employee?.info.name ?? '',
+      [Validators.required, Validators.minLength(2)]
+    ],
+    age: [
+      this.data?.employee?.info.age ?? '',
+      [Validators.required]
+    ],
+    description: [
+      this.data?.employee?.info.description ?? ''
+    ]
+  });
 
   save(): void {
-    if (this.data) {
-      this.api
-        .updateEmployee(this.data.id, this.model)
-        .subscribe(() =>
-          this.snack.open('Updated ✏️', 'Close', { duration: 2000 })
-        );
-    } else {
-      this.api
-        .createEmployee(this.model)
-        .subscribe(() =>
-          this.snack.open('Created ✅', 'Close', { duration: 2000 })
-        );
-    }
+    if (this.form.invalid || this.loading) return;
+    this.loading = true;
+    const payload = this.form.getRawValue();
+    this.dialogRef.close(payload);
+  }
+
+  close(): void {
+    this.dialogRef.close();
   }
 }

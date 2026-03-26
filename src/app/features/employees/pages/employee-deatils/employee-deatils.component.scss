@@ -1,0 +1,67 @@
+.container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.emp-id {
+  color: #6b7280;
+}
+
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.date {
+  font-weight: 600;
+  color: #374151;
+}
+
+.log {
+  padding: 14px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 5px 14px rgba(0,0,0,0.05);
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.label {
+  font-size: 12px;
+  padding: 3px 8px;
+  border-radius: 8px;
+}
+
+.label.in {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.label.out {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}

@@ -1,0 +1,49 @@
+<div class="container" *ngIf="employee() as e">
+
+  <div class="header">
+    <div>
+      <h1>{{ e.info.name }}</h1>
+      <p class="emp-id">{{ e.employeeId }}</p>
+    </div>
+
+    <div class="actions">
+      <button mat-stroked-button color="primary" (click)="editEmployee(e)">
+        Edit
+      </button>
+
+      <button mat-flat-button color="warn" (click)="deleteEmployee(e)">
+        Delete
+      </button>
+    </div>
+
+
+  </div>
+
+  <div class="timeline">
+
+    <div class="day" *ngFor="let group of groupedLogs()">
+
+      <div class="date">
+        {{ group.date }}
+      </div>
+
+      <mat-card class="log"
+                *ngFor="let log of group.logs">
+
+        <div class="row">
+          <span class="label in">Check In</span>
+          <span>{{ log.checkInTime }}</span>
+        </div>
+
+        <div class="row" *ngIf="log.checkOutTime">
+          <span class="label out">Check Out</span>
+          <span>{{ log.checkOutTime }}</span>
+        </div>
+
+      </mat-card>
+
+    </div>
+
+  </div>
+
+</div>

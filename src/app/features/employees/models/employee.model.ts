@@ -5,4 +5,5 @@ export interface Employee {
     age: string;
     description: string;
   };
+  employeeId: string;
 }

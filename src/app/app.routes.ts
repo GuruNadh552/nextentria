@@ -1,10 +1,24 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+
   {
-    path: '',
+    path: 'dashboard',
     loadComponent: () =>
-      import('./features/employees/components/employee-list/employee-list.component')
+      import('./features/employees/pages/dashboard/dashboard.component')
+        .then(m => m.DashboardComponent)
+  },
+  {
+    path: 'employees',
+    loadComponent: () =>
+      import('./features/employees/pages/employee-list/employee-list.component')
         .then(m => m.EmployeeListComponent)
+  },
+  {
+    path: 'employees/:id',
+    loadComponent: () =>
+      import('./features/employees/pages/employee-deatils/employee-deatils.component')
+        .then(m => m.EmployeeDeatilsComponent)
   }
 ];
